@@ -23,6 +23,11 @@
 #include <QLocale>
 #include <QStringList>
 
+#if defined Q_OS_OS2
+#define INCL_DOS
+#include <os2.h>
+#endif
+
 #if QT_VERSION >= QT_VERSION_CHECK(4, 7, 0)
 #include <QElapsedTimer>
 #else
@@ -180,6 +185,8 @@ void sleep(int ms)
 
 #ifdef Q_OS_WIN
     Sleep(uint(ms));
+#elif defined Q_OS_OS2
+    DosSleep(uint(ms));
 #else
     timespec ts;
     ts.tv_sec = ms / 1000;
