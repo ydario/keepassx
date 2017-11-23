@@ -181,7 +181,7 @@ FilePath::FilePath()
     else if (testSetDir(QString(KEEPASSX_SOURCE_DIR) + "/share")) {
     }
 #endif
-#if defined(Q_OS_UNIX) && !defined(Q_OS_MAC)
+#if (defined(Q_OS_UNIX) || defined(Q_OS_OS2)) && !defined(Q_OS_MAC)
     else if (isDataDirAbsolute && testSetDir(KEEPASSX_DATA_DIR)) {
     }
     else if (!isDataDirAbsolute && testSetDir(QString("%1/../%2").arg(appDirPath, KEEPASSX_DATA_DIR))) {
