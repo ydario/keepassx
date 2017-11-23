@@ -214,3 +214,11 @@ endif(WITH_TESTS)
 if(PRINT_SUMMARY)
   feature_summary(WHAT ALL)
 endif()
+
+if(OS2)
+set_target_properties(keepassx PROPERTIES
+OS2_DEF_VENDOR "Yuri Dario"
+OS2_DEF_PATCH "${VERSION_PATCH}"
+OS2_DEF_VERSION "${KEEPASSX_VERSION}"
+OS2_DEF_EXEType "WINDOWAPI")
+endif()
