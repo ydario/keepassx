@@ -150,6 +150,11 @@ if(UNIX)
       ${keepassx_SOURCES}
       core/qlockfile_unix.cpp
   )
+elseif(OS2)
+  set(keepassx_SOURCES
+      ${keepassx_SOURCES}
+      core/qlockfile_unix.cpp
+  )
 elseif(MINGW)
   set(keepassx_SOURCES
       ${keepassx_SOURCES}
