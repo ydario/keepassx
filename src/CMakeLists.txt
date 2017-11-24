@@ -253,13 +253,33 @@ if(MINGW)
       ${CMAKE_SOURCE_DIR}/share/windows/icon.rc)
 endif()
 
+if(OS2)
+    
+    message(STATUS "[keepassx] Generating executable file properties for OS2.")
+    configure_file (
+        ${PROJECT_SOURCE_DIR}/share/os2/keepassx.rc
+        ${CMAKE_BINARY_DIR}/share/os2/keepassx.rc
+    )
+    
+    enable_language(RC)
+    set(CMAKE_RC_COMPILER_INIT rc)
+    message(STATUS "[keepassx] Icon file binary will be builded for OS2.")
+    message(STATUS "[keepassx] Used tool is: ${CMAKE_RC_COMPILER}")
+    set(CMAKE_RC_COMPILE_OBJECT
+        "<CMAKE_RC_COMPILER> -n -r <SOURCE> <OBJECT>")
+    set(keepassx_RESOURCES
+        ${keepassx_RESOURCES}
+        ${CMAKE_BINARY_DIR}/share/os2/keepassx.rc)
+
+endif()
+
 qt4_wrap_ui(keepassx_SOURCES ${keepassx_FORMS})
 qt4_wrap_cpp(keepassx_SOURCES ${keepassx_MOC})
 
 add_library(keepassx_core STATIC ${keepassx_SOURCES})
 set_target_properties(keepassx_core PROPERTIES COMPILE_DEFINITIONS KEEPASSX_BUILDING_CORE)
 
-add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${keepassx_SOURCES_MAINEXE})
+add_executable(${PROGNAME} WIN32 MACOSX_BUNDLE ${keepassx_RESOURCES} ${keepassx_SOURCES_MAINEXE})
 target_link_libraries(${PROGNAME}
                       keepassx_core
                       ${QT_QTCORE_LIBRARY}
